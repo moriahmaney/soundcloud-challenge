@@ -1,7 +1,7 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ['latin'] });
+const MasonSerif = localFont({ src: '../public/fonts/MasonSerif-Regular.ttf' });
 
 export const metadata = {
   title: 'An Interface of Ice and Fire',
@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={MasonSerif.className}>{children}</body>
     </html>
   );
 }
