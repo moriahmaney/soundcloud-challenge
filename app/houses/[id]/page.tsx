@@ -1,16 +1,10 @@
 import Link from 'next/link';
 import localFont from 'next/font/local';
 
-import styles from './page.module.css';
-import Member from './components/Member';
+import styles from './styles.module.css';
+import Member from '../../components/Member';
 
-const GoTFont = localFont({ src: '../public/fonts/game-of-thrones.ttf' });
-
-async function getHouses() {
-  const res = await fetch(`https://anapioficeandfire.com/api/houses/?page=1`);
-
-  return res.json();
-}
+const GoTFont = localFont({ src: '../../../public/fonts/game-of-thrones.ttf' });
 
 type House = {
   url: string,
@@ -18,16 +12,22 @@ type House = {
   swornMembers: string[]
 }
 
-export default async function Home() {
-  const houses = await getHouses();
-  
+export default async function Page({ params }: { params: { id: string } }) {
+  const previousPage = Number(params.id) - 1;
+  const nextPage = Number(params.id) + 1;
+
+  const res = await fetch(
+    `https://anapioficeandfire.com/api/houses/?page=${params.id}`,
+  );
+  const data = (await res.json());
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <h1 className={GoTFont.className}><Link href='/'>An Interface of Ice and Fire</Link></h1>
       </div>
       <div className={styles.container}>
-        {houses.map((house: House) => {
+        {data.map((house: House) => {
           return (
             <div key={house.name} className={styles.card}>
               <h1>{house.name}</h1>
@@ -44,9 +44,12 @@ export default async function Home() {
           );
         })}
         <div className={styles.navContainer}>
-          <Link href={`houses/2`}>Next Page</Link>
+          {previousPage > 1 && <Link href={`houses/${previousPage}`}>Previous Page</Link>}
+          {previousPage === 1 && <Link href={`/`}>Previous Page</Link>}
+          <Link href={`houses/${nextPage}`}>Next Page</Link>
         </div>
+
       </div>
-    </main>
+  </main>
   );
 }

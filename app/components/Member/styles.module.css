@@ -1,0 +1,15 @@
+.container {
+  list-style: none;
+  height: 60px;
+  width: 300px;
+  margin: 20px;
+  margin-left: 0px;
+}
+
+.heading {
+  padding-bottom: 10px;
+}
+
+.text {
+  font-size: 18px;
+}
