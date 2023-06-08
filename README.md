@@ -43,3 +43,5 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
+## Video Demo
+https://www.loom.com/share/773e73b7b18a4a8399867c59bda7ed64
